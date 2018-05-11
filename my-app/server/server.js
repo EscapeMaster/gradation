@@ -1,6 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = require('./user')
+
 const app = express();
-const welcome = require('../controllers/welcome');
-app.listen(8000)
-router.get('/', welcome.index);
+
+
+app.use('/user',userRouter);
+
+app.listen(8000,function(){
+    console.log('Node app start at prot 8000');
+})
+// router.get('/', welcome.index);

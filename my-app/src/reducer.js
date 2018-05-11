@@ -1,3 +1,3 @@
 import { combineReducers } from 'redux';
-
-export default combineReducers({});
+import { user } from './redux/user_redux'
+export default combineReducers({user});

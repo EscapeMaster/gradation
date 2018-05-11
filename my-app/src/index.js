@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import {BrowserRouter, Route, Link, Redirect, Switch} from 'react-router-dom';
 import Login from './container/login';
 import Regitser from './container/register';
+import AuthRoute from './component/authroute'
 import reducers from './reducer';
 import './config';
 
@@ -17,6 +18,7 @@ ReactDOM.render(
     (<Provider store={store}>
         <BrowserRouter>
             <div>
+                <AuthRoute></AuthRoute>
                 <Route path="/login" component={Login}></Route>
                 <Route path="/register" component={Regitser}></Route>
             </div>
