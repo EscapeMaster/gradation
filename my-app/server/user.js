@@ -23,6 +23,15 @@ Router.post('/register',function(req,res){
         });
     });
 })
+Router.post('/login',function(req,res){
+    const {user,pwd} = req.body;
+    UserModel.checklogin(user,md5Pwd(pwd),function(rs){
+        if(rs.length <= 0){
+            return res.json({code:1,msg:'用户名或者密码错误'})
+        }
+        return res.json({code:0,data:rs})
+    });
+})
 Router.get('/info',function(req,res){
     //此处做Cookie的校验
     return res.json({code:1})

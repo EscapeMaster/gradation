@@ -13,3 +13,7 @@ exports.saveinfo = function(user,pwd,type,callback){
 exports.getByNamePwd = function(callback){
     db.query('SELECT * from t_user',[],callback);//没参数要传空数组
 }
+exports.checklogin = function(user,pwd,callback){
+    var sql = 'SELECT * from t_user where username=? and pwd=?';
+    db.query(sql,[user,pwd],callback);
+}
