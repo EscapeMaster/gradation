@@ -31,7 +31,7 @@ function errorMsg(msg){
 }
 
 export function register({user,pwd,repeatpwd,type}){
-    if (!user || !pwd || !!type){
+    if (!user || !pwd || !type){
         return errorMsg('用户密码必须输入')
     }
     if (pwd !== repeatpwd){

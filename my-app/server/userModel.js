@@ -1,31 +1,27 @@
-// var db = require('./db');
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'graduation'
-});
- 
-exports.getByNamePwd = function(){
-    connection.connect();
-    connection.query('SELECT * from t_user', function (error, results, fields) {
-        if (error) throw error;
-        console.log('The solution is: ', results[0]);
-      });
+const db = require('./db');
+
+// var mysql = require('mysql');
+// var pool  = mysql.createPool({
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : '',
+//   database : 'graduation'
+// });
+
+
+
+
+exports.getByNamePwd = function(callback){
+
+    // pool.getConnection(function(err, connection) {
+    //     if(err) throw err;
+    //     connection.query('SELECT * from t_user', function (error, results, fields) {
+    //       if (error) throw error;
+    //       console.log('The solution is: ', results[0]);
+    //       callback(results)
+    //       connection.release();
        
-    connection.end();
+    //     });
+    //   });
+    db.query('SELECT * from t_user',[],callback);//没参数要传空数组
 }
-
-// exports.getByNamePwd = function(callback){
-//     /*db.connection.connect();
-//     var sql = 'select * from t_user where username=? and password=?';
-//     db.connection.query(sql, [name, pass], function(err, result, fields) {
-//         if (err) throw err;
-//         callback(result);
-//     });
-//     db.connection.end();*/
-//     var sql = 'select * from t_user';
-//     db.query(sql, callback);
-
-// };

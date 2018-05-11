@@ -14,7 +14,7 @@ class AutoRoute extends React.Component{
         axios.get('user/info').
         then(res=>{
             if(res.status == 200){
-                if(res.data.code == 0){
+                if(res.data.code == 1){
                     //有登录信息的
                 }else{
                     this.props.history.push('./login')
