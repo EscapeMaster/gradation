@@ -16,7 +16,13 @@ Router.post('/register',function(req,res){
         }
         UserModel.saveinfo(user,md5Pwd(pwd),type,function(rs){
             if(rs){
-                return res.json({code:0})
+                UserModel.findRepeat(user,function(rs){
+                    if(rs.length > 0){
+                        res.cookie('userid',rs[0].username);
+                        return res.json({code:0})
+                    }
+                    return res.json({code:1,msg:'后端出错了'})
+                })
             }else{
                 return res.json({code:1,msg:'后端出错了'})
             }
@@ -29,12 +35,22 @@ Router.post('/login',function(req,res){
         if(rs.length <= 0){
             return res.json({code:1,msg:'用户名或者密码错误'})
         }
+        res.cookie('userid',rs[0].username)
         return res.json({code:0,data:rs})
     });
 })
 Router.get('/info',function(req,res){
     //此处做Cookie的校验
-    return res.json({code:1})
+    const {userid} = req.cookies;
+    if (!userid){
+        return res.json({code:1});
+    }
+    UserModel.findRepeat(userid,function(rs){
+        if(rs.length > 0){
+            return res.json({code:0,data:rs})
+        }
+        return res.json({code:1,msg:'后端出错了'})
+    });
 })
 
 function md5Pwd(pwd){
