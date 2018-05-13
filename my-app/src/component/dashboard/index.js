@@ -5,7 +5,7 @@ import {Switch, Route} from 'react-router-dom'
 import NavLinkBar from '../navlink'
 import AuthRoute from '.././authroute';
 
-// import Boss from '../../component/boss/boss'
+import Video from '../../component/video'
 // import Genius from '../../component/genius/genius'
 function Msg(){
 	return <h2>消息列表页面</h2>
@@ -17,7 +17,10 @@ function User(){
 	state=>state
 )
 class Dashboard extends React.Component{
-
+	showTitle(navList){
+		const {pathname} = this.props.location
+		return navList.find(v=>v.path==pathname).title
+	}
 	render(){
 		const {pathname} = this.props.location
 		const user = this.props.user
@@ -27,7 +30,7 @@ class Dashboard extends React.Component{
 				text:'视频',
 				icon:'video',
 				title:'视频列表',
-				component:Msg,
+				component:Video,
 				hide:user.type=='teacher'
 			},
 			{
@@ -35,7 +38,7 @@ class Dashboard extends React.Component{
 				text:'视频',
 				icon:'video',
 				title:'视频列表',
-				component:Msg,
+				component:Video,
 				hide:user.type=='student'
 			},
 			{
@@ -53,20 +56,19 @@ class Dashboard extends React.Component{
 				component:User
 			}
         ]
-        console.log(user.user)
 		return (
 			<div>
                    
                 {user.type?
                 <div>
-                    <NavBar className='fixd-header' mode='dard'>{navList.find(v=>v.path==pathname).title}</NavBar>
-				{/* <div style={{marginTop:45}}>
+                    <NavBar className='fixd-header' mode='dard'>{this.showTitle(navList)}</NavBar>
+				<div style={{marginTop:45}}>
 						<Switch>
 							{navList.map(v=>(
 								<Route key={v.path} path={v.path} component={v.component}></Route>
 							))}
 						</Switch>
-				</div> */}
+				</div>
 
 				<NavLinkBar data={navList}></NavLinkBar>
                 </div>

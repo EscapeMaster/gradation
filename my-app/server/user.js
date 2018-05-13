@@ -3,9 +3,11 @@ const express = require('express');
 const Router = express.Router();
 // const welcome = require('../controllers/welcome');
 const UserModel = require('./userModel');
+const VideoModel = require('./videoModel');
 Router.get('/list',function(req,res){
-    UserModel.getByNamePwd(function(rs){
-        return res.json(rs);
+    // const type = req.query;
+    VideoModel.getAllVideos(function(rs){
+        return res.json({code:0,data:rs})
     })
 });//test
 Router.post('/register',function(req,res){
