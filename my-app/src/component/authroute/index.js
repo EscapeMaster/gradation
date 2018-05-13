@@ -26,14 +26,13 @@ class AutoRoute extends React.Component{
                 }else{
                     this.props.history.push('./login')
                 }
-                console.log(res.data)
                 
             }
         })
 
     }
     render(){
-        return <p>判断跳转的地方</p>
+        return null;
     }
 }
 export default AutoRoute;

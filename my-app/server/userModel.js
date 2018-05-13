@@ -17,3 +17,11 @@ exports.checklogin = function(user,pwd,callback){
     var sql = 'SELECT * from t_user where username=? and pwd=?';
     db.query(sql,[user,pwd],callback);
 }
+exports.getById = function(user_id,callback){
+    var sql = 'SELECT * from t_user where user_id=?';
+    db.query(sql,[user_id],callback);
+}
+exports.updateInfo = function(desc,avator,user_id,callback){
+    var sql = 'UPDATE t_user SET `desc`=?, `avator`=? WHERE user_id=?';
+    db.query(sql,[desc,avator,user_id],callback);
+}
