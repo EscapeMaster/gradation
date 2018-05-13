@@ -9,6 +9,7 @@ import Regitser from './container/register';
 import AuthRoute from './component/authroute';
 import TeacherInfo from './container/teacherinfo';
 import StudentInfo from './container/studentinfo';
+import Dashboard from './component/dashboard'
 
 import reducers from './reducer';
 import './config';
@@ -22,10 +23,13 @@ ReactDOM.render(
         <BrowserRouter>
             <div>
                 <AuthRoute></AuthRoute>
-                <Route path="/teacherinfo" component={TeacherInfo}></Route>
-                <Route path="/studentinfo" component={StudentInfo}></Route>
-                <Route path="/login" component={Login}></Route>
-                <Route path="/register" component={Regitser}></Route>
+                <Switch>
+                    <Route path="/teacherinfo" component={TeacherInfo}></Route>
+                    <Route path="/studentinfo" component={StudentInfo}></Route>
+                    <Route path="/login" component={Login}></Route>
+                    <Route path="/register" component={Regitser}></Route>
+                    <Route component={Dashboard}></Route>
+                </Switch>
             </div>
         </BrowserRouter>
     </Provider>), document.getElementById('root')
