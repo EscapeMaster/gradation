@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class AvatorSelector extends React.Component{
     static propTypes = {
-		selectAvatar: PropTypes.func.isRequired
+		selectAvator: PropTypes.func.isRequired
 	}//类型校验
 	constructor(props) {
 		super(props)
