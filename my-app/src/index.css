@@ -6,11 +6,15 @@
 	position: fixed;
 	bottom: 0;
 	width: 100%;
+	z-index: 1;
 }
-.fixd-header.am-navbar{
+/* .fixd-header.am-navbar{
 	position: fixed;
 	top: 0;
 	width: 100%;
+} */
+.am-tab-bar{
+	height: 50px;
 }
 .page-content{
 	padding:45px 5px;

@@ -63,7 +63,8 @@ Router.post('/update',function(req,res){
     const user_id = parseInt(req.cookies.userid);
     
     const body = req.body;
-    UserModel.updateInfo(body.desc,body.avator,user_id,function(rs){
+    const {desc, avator,address,school,college} = body;
+    UserModel.updateInfo(desc,avator,user_id,address,school,college,function(rs){
         if(!rs.affectedRows){
             return res.json({code:1,msg:'后端出错了'})
         }
