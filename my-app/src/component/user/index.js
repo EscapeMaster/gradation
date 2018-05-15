@@ -14,7 +14,6 @@ class User extends React.Component{
 		this.logout = this.logout.bind(this)
 	}
 	logout(){
-		console.log(111);
 		const alert = Modal.alert
 
 		alert('注销', '确认退出登录吗???', [
@@ -24,6 +23,9 @@ class User extends React.Component{
 		      	this.props.logoutSubmit()
 		      }}
 		    ])
+	}
+	componentDidMount () {
+		console.log(this.refs.aaa)
 	}
 	render(){
 		const props = this.props

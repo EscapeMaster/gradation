@@ -1,7 +1,5 @@
 import React from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
-import {Card, WhiteSpace,WingBlank} from 'antd-mobile'
 import {getVideoList} from '../../redux/chatuser_redux'
 import VideoCard from '../videocard'
 
