@@ -61,7 +61,7 @@ class VideoDetails extends React.Component {
         const time = this.getNowFormatDate();
         this.setState({ user_id, time }, () => {
             this.props.submitComment(this.state);
-            this.setState({content:''})
+            this.setState({ content: '' })
         })
     }
     render() {
@@ -70,7 +70,7 @@ class VideoDetails extends React.Component {
         const Footer = Card.Footer;
         const Item = List.Item;
         const Brief = Item.Brief;
-        const { title, cate_name, desc, username, video_src } = this.props.videolist[0];
+        const { title, cate_name, desc, username, video_src, avator } = this.props.videolist[0];
         return (
             <WingBlank>
                 <div id="video">
@@ -78,15 +78,16 @@ class VideoDetails extends React.Component {
                 </div>
                 <Card>
                     <Header
-                        title={title}
-                        extra={<span>{cate_name}</span>}
+                        title={username}
+                        thumb={require(`../../component/img/${avator}.png`)}
+                        extra={<span>{title}</span>}
                     ></Header>
                     <Body>
                         {desc.split('\n').map(d => (
                             <div key={d}>{d}</div>
                         ))}
                     </Body>
-                    <Footer content={username}></Footer>
+                    <Footer content={cate_name}></Footer>
                 </Card>
                 <WhiteSpace></WhiteSpace>
                 {this.props.commentslist.length ?
