@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { Card, WhiteSpace, WingBlank, List } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { StateType } from 'rmc-calendar/lib/Calendar';
-import {withRouter} from 'react-router-dom'
-import {lookVideo} from '../../redux/chatuser_redux'
+import { withRouter } from 'react-router-dom'
+import { lookVideo } from '../../redux/chatuser_redux'
 
 @withRouter
 @connect(
 	state => state,
-	{lookVideo}
+	{ lookVideo }
 )
 class VideoCard extends React.Component {
 	static propTypes = {
@@ -18,13 +18,8 @@ class VideoCard extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-	handleplay(video_id,user_id,cate_id) {
-		// console.log(this.props)
-		this.setState({video_id:video_id,user_id:user_id,cate_id:cate_id},()=>{
-			this.props.lookVideo(this.state);
-			this.props.history.push(`/video?video_id=${video_id}&user_id=${user_id}&cate_id=${cate_id}`);
-		})
-		
+	handleplay(video_id, user_id, cate_id) {
+		this.props.history.push(`/video?video_id=${video_id}&user_id=${user_id}`);
 	}
 	render() {
 		const Header = Card.Header;
@@ -51,7 +46,7 @@ class VideoCard extends React.Component {
 								</Body>
 							</Card>
 							<List>
-								<Item onClick={this.handleplay.bind(this,v.video_id,v.user_id,v.cate_id)}><Brief>点击观看</Brief></Item>
+								<Item onClick={this.handleplay.bind(this, v.video_id, v.user_id, v.cate_id)}><Brief>点击观看</Brief></Item>
 							</List>
 							<WhiteSpace></WhiteSpace>
 						</div>

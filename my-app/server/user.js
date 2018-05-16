@@ -40,16 +40,61 @@ Router.post('/login', function (req, res) {
         return res.json({ code: 0, data: rs })
     });
 })
+Router.post('/save', function (req, res) {
+    const { video_id, user_id, time, content } = req.body;
+    const v_id = parseInt(video_id);
+    const u_id = parseInt(user_id);
+    const { userid } = req.cookies;
+    if (!userid) {
+        return res.json({ code: 1, msg: '用户没登录' })
+    }
+    VideoModel.saveComment(v_id, u_id, time, content, function (rs) {
+        if (!rs.affectedRows) {
+            return res.json({ code: 1, msg: '后端出错了' })
+        }
+        VideoModel.getCommentsById(v_id, function (rs) {
+            if (rs) {
+                return res.json({ code: 0, data: rs })
+            }
+            return res.json({ code: 1, msg: '后端出错了' })
+        })
+    })
+
+
+})
+
 Router.get('/video', function (req, res) {
     const { video_id, user_id, cate_id } = req.query;
     const { userid } = req.cookies;
     if (!userid) {
         return res.json({ code: 1, msg: '用户没登录' })
     }
-    VideoModel.getVideoById(video_id, user_id,cate_id, function (rs) {
+    VideoModel.getVideoById(video_id, function (rs) {
         return res.json({ code: 0, data: rs })
     })
 });
+Router.get('/comment', function (req, res) {
+    const { video_id } = req.query;
+    const { userid } = req.cookies;
+    if (!userid) {
+        return res.json({ code: 1, msg: '用户没登录' })
+    }
+    VideoModel.getCommentsById(video_id, function (rs) {
+        return res.json({ code: 0, data: rs })
+    })
+});
+
+Router.get('/search', function (req, res) {
+    const { info } = req.query;
+    const { userid } = req.cookies;
+    if (!userid) {
+        return res.json({ code: 1, msg: '用户没登录' })
+    }
+    VideoModel.searchVideos(info, function (rs) {
+        return res.json({ code: 0, data: rs })
+    })
+});
+
 Router.get('/info', function (req, res) {
     //此处做Cookie的校验验证登录的状态
     const { userid } = req.cookies;
