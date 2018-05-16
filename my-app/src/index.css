@@ -19,3 +19,10 @@
 .page-content{
 	padding:45px 5px;
 }
+#video{
+	width: 100%;
+	margin: 0 auto;
+	height: 240px;
+	display:flex;
+    justify-content:center;
+}

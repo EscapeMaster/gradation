@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 import NavLinkBar from '../navlink'
 import AuthRoute from '.././authroute';
 import User from '../../component/user'
-import Video from '../../component/video'
+import Video from '../../component/video-info'
 import { Redirect } from 'react-router-dom';
 
 // import Genius from '../../component/genius/genius'
