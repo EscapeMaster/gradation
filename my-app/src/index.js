@@ -11,6 +11,7 @@ import TeacherInfo from './container/teacherinfo';
 import StudentInfo from './container/studentinfo';
 import Dashboard from './component/dashboard';
 import VideoDetails from './container/videodetails';
+import Chat from './component/chat';
 import Search from './container/search';
 import reducers from './reducer';
 import './config';
@@ -30,7 +31,7 @@ ReactDOM.render(
                     <Route path="/login" component={Login}></Route>
                     <Route path="/register" component={Regitser}></Route>
                     <Route path="/video" component={VideoDetails}></Route>
-                    <Route path="/search" component={Search}></Route>
+                    <Route path="/chat/:user" component={Chat}></Route>
                     <Route component={Dashboard}></Route>
                 </Switch>
             </div>

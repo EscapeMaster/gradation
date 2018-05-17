@@ -1,7 +1,4 @@
 import axios from 'axios';
-// const VIDEO_LIST = 'VIDEO_LIST';
-// const VIDEO_SINGLE = 'VIDEO_SINGLE';
-// const SERACH_SUCCESS = 'SERACH_SUCCESS';
 const LOAD_SUCCESS = 'LOAD_SUCCESS';
 const COMMENT_SUCCESS = 'COMMENT_SUCCESS';
 const initState = {
@@ -11,12 +8,6 @@ const initState = {
 
 export function chatuser(state = initState, action) {
     switch (action.type) {
-        // case VIDEO_LIST:
-        //     return { ...state, videolist: action.payload }
-        // case VIDEO_SINGLE:
-        //     return { ...state, videolist: action.payload }
-        // case SERACH_SUCCESS:
-        //     return { ...state, videolist: action.payload }
         case LOAD_SUCCESS:
             return { ...state, videolist: action.payload }
         case COMMENT_SUCCESS:
@@ -30,17 +21,6 @@ export function chatuser(state = initState, action) {
 
 
 
-// function videoList(data) {
-//     return { type: VIDEO_LIST, payload: data }
-// }
-
-// function videoSingle(data) {
-//     return { type: VIDEO_SINGLE, payload: data }
-// }
-
-// function searchResult(data) {
-//     return { type: SERACH_SUCCESS, payload: data }
-// }
 function commentsData(data) {
     return { type: COMMENT_SUCCESS, payload: data }
 }

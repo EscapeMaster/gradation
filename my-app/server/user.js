@@ -4,6 +4,7 @@ const Router = express.Router();
 // const welcome = require('../controllers/welcome');
 const UserModel = require('./userModel');
 const VideoModel = require('./videoModel');
+const ChatModel = require('./chatModel');
 Router.get('/list', function (req, res) {
     VideoModel.getAllVideos(function (rs) {
         return res.json({ code: 0, data: rs })
@@ -129,6 +130,15 @@ Router.post('/update', function (req, res) {
             return res.json({ code: 1, msg: '后端出错了' })
         })
     });// 更新并返回数据
+
+})
+
+Router.get('/getmsgList', function (req, res) {
+    const { userid } = req.cookies;
+    const user_id = parseInt(req.cookies.userid);
+    ChatModel.getMsgById(user_id, function (rs) {
+        return res.json({ code: 0, msgs: rs })
+    })
 
 })
 

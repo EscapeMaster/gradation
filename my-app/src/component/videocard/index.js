@@ -13,13 +13,16 @@ import { lookVideo } from '../../redux/chatuser_redux'
 )
 class VideoCard extends React.Component {
 	static propTypes = {
-		videolist: PropTypes.array
+		videolist: PropTypes.array.isRequired
 	}
 	constructor(props) {
 		super(props);
 	}
 	handleplay(video_id, user_id, cate_id) {
 		this.props.history.push(`/video?video_id=${video_id}&user_id=${user_id}`);
+	}
+	handleClick(v){
+		this.props.history.push(`/chat/${v.username}`);
 	}
 	render() {
 		const Header = Card.Header;
@@ -33,7 +36,7 @@ class VideoCard extends React.Component {
 				{videolist.map(v => (
 					v.avator ? (
 						<div className="video" key={v.video_id}>
-							<Card>
+							<Card onClick={()=>this.handleClick(v)}>
 								<Header
 									title={v.title}
 									thumb={require(`../img/${v.avator}.png`)}
