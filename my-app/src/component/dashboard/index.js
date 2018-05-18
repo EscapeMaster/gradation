@@ -5,13 +5,11 @@ import { Switch, Route } from 'react-router-dom'
 import NavLinkBar from '../navlink'
 import AuthRoute from '.././authroute';
 import User from '../../component/user'
-import Video from '../../component/video-info'
+import Video from '../../component/video-info';
 import { Redirect } from 'react-router-dom';
 import { getMsgList, recvMsg } from '../../redux/chat_redux';
+import Msg from '../../component/msg';
 
-function Msg() {
-	return <h2>消息列表页面</h2>
-}
 
 @connect(
 	state => state,
