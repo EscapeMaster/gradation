@@ -7,17 +7,23 @@ import AuthRoute from '.././authroute';
 import User from '../../component/user'
 import Video from '../../component/video-info'
 import { Redirect } from 'react-router-dom';
+import { getMsgList, recvMsg } from '../../redux/chat_redux';
 
-// import Genius from '../../component/genius/genius'
 function Msg() {
 	return <h2>消息列表页面</h2>
 }
 
 @connect(
-	state => state
+	state => state,
+	{ getMsgList, recvMsg }
 )
 class Dashboard extends React.Component {
-
+	componentDidMount() {
+		if (!this.props.chat.chatmsg.length) {
+			this.props.getMsgList();//查询所有和我有关的消息
+			this.props.recvMsg();
+		}
+	}
 	render() {
 		const { pathname } = this.props.location
 		const user = this.props.user

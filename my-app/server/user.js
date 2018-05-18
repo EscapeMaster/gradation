@@ -133,15 +133,25 @@ Router.post('/update', function (req, res) {
 
 })
 
-Router.post('/getmsgList', function (req, res) {
+// Router.post('/getmsgList', function (req, res) {
+//     const { from, to } = req.body;
+//     const _to = parseInt(to);
+//     const chatid = [from, _to].sort().join('_');
+//     console.log(chatid)
+//     ChatModel.getMsgById(chatid, function (rs) {
+//         return res.json({ code: 0, msgs: rs })
+//     })
+
+// })
+
+Router.get('/getmsgList', function (req, res) {
     const { userid } = req.cookies;
-    const { from, to } = req.body;
-    const _to = parseInt(to);
-    const chatid = [from, _to].sort().join('_');
-    console.log(chatid)
-    ChatModel.getMsgById(chatid, function (rs) {
-        return res.json({ code: 0, msgs: rs })
-    })
+    ChatModel.getNameAvator(function (data) {
+        ChatModel.getmyMsg(userid, function (rs) {
+            return res.json({ code: 0, msgs: rs, users: data })
+        })
+    });
+
 
 })
 

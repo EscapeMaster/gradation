@@ -12,6 +12,15 @@ exports.saveMsg = function (from, to, msg, chatid, time, callback) {
     db.query(sql, [from, to, msg, time, chatid, 0], callback);
 }
 exports.getMsgByInsertId = function (id, callback) {
-    const sql = 'select * from t_chat where chat_id=?';
+    const sql = 'select c.*,u.user_id,u.username,u.avator from t_chat as c,t_user as u where c.from=u.user_id and c.chat_id=?';
     db.query(sql, [id], callback);
 }
+exports.getmyMsg = function (userid, callback) {
+    const sql = 'select * from t_chat as c,t_user as u where (u.user_id=c.to or u.user_id=c.from) and user_id=?';
+    db.query(sql, [userid], callback);
+}
+exports.getNameAvator = function (callback) {
+    const sql = 'select u.user_id,u.username,u.avator from t_user as u';
+    db.query(sql, [], callback);
+}
+

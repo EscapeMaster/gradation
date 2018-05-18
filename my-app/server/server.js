@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./user');
+const chatRouter = require('./chat');
 const ChatModel = require('./chatModel');
 const app = express();
 //work with express
@@ -28,6 +29,7 @@ io.on('connection', function (socket) {
 app.use(cookieParser());//可以解析cookie
 app.use(bodyParser.json());//解析post过来的json
 app.use('/user', userRouter);
+app.use('/chat',chatRouter);
 server.listen(8000, function () {
     console.log('Node app start at prot 8000');
 })

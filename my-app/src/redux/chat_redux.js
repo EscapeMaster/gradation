@@ -11,36 +11,38 @@ const MSG_READ = 'MSG_READ'
 
 const initState = {
     chatmsg: [],
-    unread: 0
+    unread: 0,
+    users: {}
 }
 
 
 export function chat(state = initState, action) {
     switch (action.type) {
         case MSG_LIST:
-            return { ...state, chatmsg: action.payload, unread: action.payload.filter(v => { return !v.read }).length }
+            return { ...state, users: action.payload.users, chatmsg: action.payload.msgs, unread: action.payload.msgs.filter(v => !v.read && v.to == action.payload.user_id).length }
         case MSG_RECV:
-            return { ...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + 1 }
+            const n = action.payload.to == action.user_id ? 1 : 0;
+            return { ...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + n }
         // case MSG_READ:
         default:
             return state
     }
 }
 
-function msgList(msgs) {
-    return { type: 'MSG_LIST', payload: msgs }
+function msgList(msgs, users, user_id) {
+    return { type: 'MSG_LIST', payload: { msgs, users, user_id } }
 }
-function msgRecv(msg) {
-    return { type: 'MSG_RECV', payload: msg }
+function msgRecv(msg, user_id) {
+    return { user_id, type: 'MSG_RECV', payload: msg }
 }
-export function getMsgList(from,to) {
-    return dispatch => {
-        axios.post(`/user/getmsgList`,{from,to})
-            .then(res => {
-                dispatch(msgList(res.data.msgs))
-            })
-    }
-}
+// export function getMsgList(from, to) {
+//     return dispatch => {
+//         axios.post(`/user/getmsgList`, { from, to })
+//             .then(res => {
+//                 dispatch(msgList(res.data.msgs))
+//             })
+//     }
+// }
 
 export function sendMsg({ from, to, msg }) {
     return dispatch => {
@@ -49,10 +51,22 @@ export function sendMsg({ from, to, msg }) {
 }
 
 export function recvMsg() {
-    return dispatch => {
+    return (dispatch, getState) => {
         socket.on('recvmsg', function (data) {
-            console.log('recvmsg', data)
-            dispatch(msgRecv(data))
+            const user_id = getState().user.user_id;
+            dispatch(msgRecv(data, user_id))
         })
+    }
+}
+
+export function getMsgList() {
+    return (dispatch, getState) => {
+        axios.get(`/user/getmsgList`)
+            .then(res => {
+                if (res.data.code == 0) {
+                    const user_id = getState().user.user_id;
+                    dispatch(msgList(res.data.msgs, res.data.users, user_id))
+                }
+            })
     }
 }
