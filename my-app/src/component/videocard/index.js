@@ -22,7 +22,7 @@ class VideoCard extends React.Component {
 		this.props.history.push(`/video?video_id=${video_id}&user_id=${user_id}`);
 	}
 	handleClick(v){
-		this.props.history.push(`/chat/${v.username}`);
+		this.props.history.push(`/chat/${v.user_id}`);
 	}
 	render() {
 		const Header = Card.Header;

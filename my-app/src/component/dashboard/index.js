@@ -43,14 +43,16 @@ class Dashboard extends React.Component {
 				text: '消息',
 				icon: 'msg',
 				title: '消息列表',
-				component: Msg
+				component: Msg,
+				hide: true
 			},
 			{
 				path: '/me',
 				text: '我',
 				icon: 'user',
 				title: '个人中心',
-				component: User
+				component: User,
+				hide: true
 			}
 		]
 		return (

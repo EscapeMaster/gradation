@@ -133,10 +133,13 @@ Router.post('/update', function (req, res) {
 
 })
 
-Router.get('/getmsgList', function (req, res) {
+Router.post('/getmsgList', function (req, res) {
     const { userid } = req.cookies;
-    const user_id = parseInt(req.cookies.userid);
-    ChatModel.getMsgById(user_id, function (rs) {
+    const { from, to } = req.body;
+    const _to = parseInt(to);
+    const chatid = [from, _to].sort().join('_');
+    console.log(chatid)
+    ChatModel.getMsgById(chatid, function (rs) {
         return res.json({ code: 0, msgs: rs })
     })
 
