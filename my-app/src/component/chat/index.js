@@ -3,14 +3,14 @@ import io from 'socket.io-client';
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile';
 import { spawn } from 'child_process';
 import { connect } from 'react-redux';
-import { getMsgList, sendMsg, recvMsg, getMeMsg } from '../../redux/chat_redux';
+import { getMsgList, sendMsg, recvMsg, getMeMsg, readMsg } from '../../redux/chat_redux';
 import { getChatId } from '../../util';
 // const socket = io('ws://localhost:8000')//有跨域
 
 
 @connect(
     state => state,
-    { getMsgList, sendMsg, recvMsg }
+    { getMsgList, sendMsg, recvMsg, readMsg }
 )
 class Chat extends React.Component {
     constructor(props) {
@@ -26,12 +26,16 @@ class Chat extends React.Component {
             this.props.getMsgList();
             this.props.recvMsg();
         }
-
+       
         // socket.on('recvmsg', (data) => {
         //     this.setState({
         //         msg: [...this.state.msg, data.text]
         //     })
         // });
+    }
+    componentWillUnmount() {
+        const to = this.props.match.params.user;
+        this.props.readMsg(to);
     }
     handleSumbit() {
         // socket.emit('sendmsg', { text: this.state.text })

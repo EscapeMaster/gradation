@@ -24,3 +24,7 @@ exports.getNameAvator = function (callback) {
     db.query(sql, [], callback);
 }
 
+exports.updateRead = function (userid, from, callback) {
+    const sql = 'UPDATE t_chat SET `read`=? WHERE `from`=? and `to`=?';
+    db.query(sql, [1, from, userid], callback);
+}

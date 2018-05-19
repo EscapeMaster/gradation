@@ -154,6 +154,18 @@ Router.get('/getmsgList', function (req, res) {
 
 
 })
+Router.post('/readmsg', function (req, res) {
+    const { userid } = req.cookies;
+
+    const { from } = req.body;
+    const _userid = parseInt(userid);
+    const _from = parseInt(from);
+    ChatModel.updateRead(_userid, _from, function (rs) {
+        return res.json({ code: 0, num: rs.changedRows })//affectedRows是不一样的，请求修改的数据一样返回的数值和第一次是一样的
+    })
+
+})
+
 
 function md5Pwd(pwd) {
     const salt = 'jokeraizy0203!#!$~';
